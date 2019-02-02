@@ -1,0 +1,24 @@
+
+<%= render partial: "chat", locals: { chat: chat, users: @users}%>
+<div class="posts">
+    <h1 class="content-subhead">Chats</h1>
+
+    <!-- A single blog post -->
+    <section class="post">
+        <header class="post-header">
+            <img width="48" height="48" alt="Tilo Mitra&#x27;s avatar" class="post-avatar" src="https://www.iconsdb.com/icons/preview/black/message-xxl.png">
+
+            <h2 class="post-title">Introducing Pure</h2>
+
+            <p class="post-meta">
+                By <a href="#" class="post-author">Tilo Mitra</a> under <a class="post-category post-category-design" href="#">CSS</a> <a class="post-category post-category-pure" href="#">Pure</a>
+            </p>
+        </header>
+
+        <div class="post-description">
+            <p>
+                <%= @users %>
+            </p>
+        </div>
+    </section>
+</div>
