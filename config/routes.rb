@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :entries, defaults: { format: 'json' }
   
   get '/chats', to: 'chat#index'
+  #get '/css/layouts/blog.css'
 end

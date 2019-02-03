@@ -20,7 +20,7 @@
             <link rel="stylesheet" href="css/layouts/blog-old-ie.css">
         <![endif]-->
         <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="css/layouts/blog.css">
+            <link rel="stylesheet" href="/assets/blog.css">
         <!--<![endif]-->
 </head>
 <body>
@@ -45,7 +45,12 @@
             <% if @chats.present? then %>
             	<% @chats.each do |chat| %>
             	<% txt = chat.txt %>
-            	<% obj = JSON.parse(txt) %>
+
+                <% begin %>
+            	   <% obj = JSON.parse(txt) %>
+                <% rescue %>
+                    <% next %>
+                <% end %>
             	<% from = obj['iFromUserId'] %>
             	<% to = obj['iToUserId'] %>
 
@@ -60,10 +65,10 @@
 					        <header class="post-header">
 					            <img width="48" height="48" alt="Tilo Mitra&#x27;s avatar" class="post-avatar" src="https://www.iconsdb.com/icons/preview/black/message-xxl.png">
 
-					            <h2 class="post-title">To: <%= tUser.full_name %></h2>
+					            <h2 class="post-title">To: <%= tUser.full_name if tUser.present? %></h2>
 
 					            <p class="post-meta">
-					                Sent By <a href="#" class="post-author"><%= fUser.full_name %></a> <a class="post-category post-category-design" href="#"><%= fUser.email_id %></a> <a class="post-category post-category-pure" href="#"><%= fUser.mobile %></a>
+					                Sent By <a href="#" class="post-author"><%= fUser.full_name if fUser.present? %></a> <a class="post-category post-category-design" href="#"><%= fUser.email_id if fUser.present? %></a> <a class="post-category post-category-pure" href="#"><%= fUser.mobile if fUser.present? %></a> sent at <%= chat.created_at %> id: <%= chat.id %>
 					            </p>
 					        </header>
 
@@ -79,6 +84,10 @@
 					    </section>
 					</div>
             	<% end %>
+
+                <div class="posts">
+                    <%= will_paginate @chats %>
+                </div>
             <% end %>
             
             <div class="footer">
